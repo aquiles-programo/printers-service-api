@@ -71,7 +71,13 @@ const addPrinter = (name, ip, warehouse) => {
 const getPrinters = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const data = await Printer.find({})
+			const data = await Printer.aggregate([
+				{
+					$project:{
+						__v:0
+					}
+				}
+			])
 			resolve(data)
 		} catch (error) {
 			reject(error)
@@ -83,8 +89,7 @@ const getPrinter = (_id) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const data = await Printer.findOne({_id})
-			if (!data) reject("Not Found")
-
+			if (!data) reject("Not found")
 			resolve(data)
 		} catch (error) {
 			reject(error)
