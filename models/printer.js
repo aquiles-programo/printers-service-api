@@ -9,7 +9,7 @@ const PrinterSchema = Schema({
 		type: String,
 		unique: true,
 	},
-	wareHouse: {
+	warehouse: {
 		type: String,
 		index: true
 	},

@@ -35,10 +35,10 @@ const remove = (_id) => {
 	})
 }
 
-const updatePrinter = (printer, { name, ip, wareHouse }) => {
+const updatePrinter = (printer, { name, ip, warehouse }) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const data = await update(printer, { name, ip, wareHouse })
+			const data = await update(printer, { name, ip, warehouse })
 			resolve(data)
 		} catch (error) {
 			reject(error)
@@ -79,8 +79,22 @@ const getPrinters = () => {
 	})
 }
 
+const getPrinter = (_id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const data = await Printer.findOne({_id})
+			if (!data) reject("Not Found")
+
+			resolve(data)
+		} catch (error) {
+			reject(error)
+		}
+	})
+}
+
 module.exports = {
 	getPrinters,
+	getPrinter,
 	addPrinter,
 	updatePrinter,
 	deletePrinter,

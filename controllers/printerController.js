@@ -1,8 +1,19 @@
 const printerService = require('../services/printerService')
 
-const getPrinters = async (_, response) => {
+const getPrinters = async (_,response) => {
 	try {
 		const data = await printerService.getPrinters()
+		response.status(200).json({ message: 'Impresoras cargadas', data })
+	} catch (error) {
+		console.error(error)
+		response.status(500).json({ error })
+	}
+}
+
+const getPrinter = async (request,response) => {
+	try {
+		const id= request.params.id
+		const data = await printerService.getPrinter(id)
 		response.status(200).json({ message: 'Impresoras cargadas', data })
 	} catch (error) {
 		console.error(error)
@@ -45,6 +56,7 @@ const updatePrinter = async (request, response) => {
 
 module.exports = {
 	getPrinters,
+	getPrinter,
 	addPrinter,
 	updatePrinter,
 	deletePrinter,
